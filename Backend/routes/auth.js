@@ -1,4 +1,4 @@
-require('dotenv').config();
+// require('dotenv').config();
 const express = require("express");
 const User = require("../models/User");
 const router = express.Router();
@@ -48,6 +48,7 @@ router.post(
         }
       }
       const authToken = jwt.sign(data,JWT_SECRET)
+      console.log(JWT_SECRET)
       success = true
       res.json({success,authToken})
     //   res.json(user)

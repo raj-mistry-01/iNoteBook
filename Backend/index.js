@@ -1,11 +1,12 @@
+const dotenv = require("dotenv");
+dotenv.config();
 const connectToMongo = require("./db")
-const express = require("express")
-const cors = require("cors")
 connectToMongo()
+const express = require("express")  
+const cors = require("cors")
 const app = express()
 const port = 7000
 app.use(cors())
-
 
 // importing routes from routes folder
 app.use(express.json())
