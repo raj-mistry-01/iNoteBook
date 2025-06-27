@@ -12,6 +12,9 @@ app.use(express.json())
 app.use("/api/auth" ,require("./routes/auth"))
 app.use("/api/notes" ,require("./routes/notes"))
 app.use("/api/userStats",require("./routes/usernotesinfo"))
+app.get("/api/getcheck",(req,res)=>{
+    res.json({"ok":"ok"})
+})
 
 app.listen(port,()=>{
     console.log(`App listening at http://localhost:${port}`)
