@@ -17,7 +17,7 @@ router.post(
     body("password", "Enter a Password").isLength({ min: 5 }),
   ],
   async (req, res) => {
-    let success = false
+    let success = false;
       const err = validationResult(req);
       // if there are errors , return bad request and error
     if (!err.isEmpty()) {
@@ -36,6 +36,7 @@ router.post(
       }
       const salt = await bcrypt.genSalt(10);
       const securedPassword = await bcrypt.hash(req.body.password,salt)
+      console.log(req.body.name)
       user = await User.create({
         name: req.body.name,
         email: req.body.email,
