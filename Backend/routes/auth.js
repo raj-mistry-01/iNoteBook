@@ -36,7 +36,6 @@ router.post(
       }
       const salt = await bcrypt.genSalt(10);
       const securedPassword = await bcrypt.hash(req.body.password,salt)
-      console.log(req.body.name)
       user = await User.create({
         name: req.body.name,
         email: req.body.email,
@@ -48,7 +47,6 @@ router.post(
         }
       }
       const authToken = jwt.sign(data,JWT_SECRET)
-      console.log(JWT_SECRET)
       success = true
       res.json({success,authToken})
     //   res.json(user)
@@ -106,7 +104,6 @@ router.post(
         try {
             const userId = req.user.id
             const user = await User.findById(userId).select("-password") // - minus without it only all details , 
-            console.log("user fetched")
             res.send(user)
         } 
         catch (error) {

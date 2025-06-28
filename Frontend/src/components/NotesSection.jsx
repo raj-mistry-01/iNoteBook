@@ -4,7 +4,7 @@ import NoteContext from "../context/notes/NoteContext.jsx";
 import AddNote from "./AddNote";
 import Loading from "./Loading";
 import { useNavigate } from "react-router-dom";
-
+import { Modal } from 'bootstrap';
 function NotesSection(props) {
     const navigate = useNavigate();
     const context = useContext(NoteContext);
@@ -22,11 +22,15 @@ function NotesSection(props) {
     }, []);
 
     const updateNote = (currentNote) => {
-        refOpenModal.current.click();
-        document.querySelector("#titleToEdit").setAttribute("value", currentNote.title);
-        document.querySelector("#descriptionToEdit").value = currentNote.description; // Set value directly for textarea
-        document.querySelector("#tagToEdit").setAttribute("value", currentNote.tag);
-        setnote({ id: currentNote._id, titleToEdit: currentNote.title, descriptionToEdit: currentNote.description, tagToEdit: currentNote.tag });
+        const modalElement = document.getElementById('exampleModal');
+        const modal = new Modal(modalElement);
+        modal.show();
+        setnote({
+            id: currentNote._id,
+            titleToEdit: currentNote.title,
+            descriptionToEdit: currentNote.description,
+            tagToEdit: currentNote.tag
+        });
     };
 
     const handleinputchange = (event) => {
@@ -36,7 +40,12 @@ function NotesSection(props) {
     const editNote_ = (event) => {
         event.preventDefault();
         editNote(note.id, note.titleToEdit, note.descriptionToEdit, note.tagToEdit);
-        refCloseModal.current.click();
+
+        // Close the modal
+        const modalElement = document.getElementById('exampleModal');
+        const modalInstance = Modal.getInstance(modalElement);
+        modalInstance.hide();
+
         props.showAlert("Note Updated Successfully", "success");
     };
 
@@ -83,6 +92,7 @@ function NotesSection(props) {
                                         className="form-control"
                                         id="titleToEdit"
                                         name="titleToEdit"
+                                        value={note.titleToEdit}
                                         onChange={handleinputchange}
                                         minLength={5}
                                         required
@@ -100,6 +110,7 @@ function NotesSection(props) {
                                         id="descriptionToEdit"
                                         name="descriptionToEdit"
                                         onChange={handleinputchange}
+                                        value={note.descriptionToEdit}
                                         minLength={5}
                                         required
                                         rows={4} // Set the number of visible rows
@@ -117,6 +128,7 @@ function NotesSection(props) {
                                         className="form-control"
                                         id="tagToEdit"
                                         name="tagToEdit"
+                                        value={note.tagToEdit}
                                         onChange={handleinputchange}
                                         minLength={5}
                                         required

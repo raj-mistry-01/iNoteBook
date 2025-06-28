@@ -5,7 +5,7 @@ import { Container, Row, Col, Card, Button, ListGroup } from 'react-bootstrap';
 import { useContext } from 'react';
 import NoteContext from '../context/notes/NoteContext.jsx';
 import {useNavigate} from "react-router-dom"
-
+import Image from "../assets/logo2.png"
 // const Image = require("../assets/logo2.png")
 function Dashboard(props) {
     const navigate = useNavigate()

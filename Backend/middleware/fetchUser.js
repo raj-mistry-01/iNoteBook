@@ -3,7 +3,6 @@ const JWT_SECRET = "escapethematrix"
 
 const fetchuser = (req,res,next) => {
     const token = req.header("authToken")
-    console.log(token);
     if (!token) {
         res.status(401).send("PLease authenticate using a valid token")
     }
