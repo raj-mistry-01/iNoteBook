@@ -5,7 +5,7 @@ import { Container, Row, Col, Card, Button, ListGroup } from 'react-bootstrap';
 import { useContext } from 'react';
 import NoteContext from '../context/notes/NoteContext.jsx';
 import {useNavigate} from "react-router-dom"
-import Image from "../assets/logo2.png"
+import Image from "../assets/in2.png"
 // const Image = require("../assets/logo2.png")
 function Dashboard(props) {
     const navigate = useNavigate()
@@ -43,7 +43,7 @@ function Dashboard(props) {
   return (
     <div className="d-flex">
       {/* Sidebar */}
-      <div className="sidebar  text-white p-4" style={{ width: '250px', height: '100vh' }}>
+      <div className="sidebar  text-white" style={{ width: '257px', height: '100vh' }}>
         <div className="text-center mb-4">
           <img src={Image} alt="iNotebook Logo" className="sidebar-logo" /> {/* Replace with your local path */}
           <h2 className="mt-3">iNotebook</h2>
