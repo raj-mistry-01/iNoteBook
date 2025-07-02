@@ -18,7 +18,9 @@ function NotesSection(props) {
     useEffect(() => {
         if (localStorage.getItem("authToken")) {
             fetchAllNotes();
+            notify("Notes Fetched Successfully",'success');
         } else {
+            notify("Please Login First",'warning');
             navigate("/login");
         }
     }, []);
