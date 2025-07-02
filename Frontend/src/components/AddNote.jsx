@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import NoteContext from '../context/notes/NoteContext.jsx';
 import { useToast } from '../context/notification/ToastContext.jsx';
+import API_URL from '../config/api.jsx';
 
 function AddNote(props) {
   const [note, setnote] = useState({ title: "", description: "", tag: "" });
@@ -12,7 +13,7 @@ function AddNote(props) {
     event.preventDefault();
     const resp = await addNote(note.title, note.description, note.tag);
     setnote({ title: "", description: "", tag: "" });
-    let response = await fetch("http://localhost:7000/api/userStats/updateStats",{
+    let response = await fetch(`${API_URL}/userStats/updateStats`,{
       method : "POST",
       headers : {"Content-Type" : "application/json"},
       body : JSON.stringify({email : localStorage.getItem("email") , type : "added"})

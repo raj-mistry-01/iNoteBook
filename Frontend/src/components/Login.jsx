@@ -2,13 +2,15 @@ import React from 'react'
 import { useState } from 'react'
 import {useNavigate} from "react-router-dom"
 import { useToast } from '../context/notification/ToastContext'
+import API_URL from '../config/api'
 function Login(props) {
   const {notify} = useToast();
   let navigate = useNavigate()
   const [creditianls, setcreditianls] = useState({email:"",password:""})
   const handleLogin = async (event) => {
     event.preventDefault()
-    let response = await fetch("http://localhost:7000/api/auth/login",{
+    console.log(API_URL)
+    let response = await fetch(`${API_URL}/auth/login`,{
       method : "POST",
       headers : {
         "Content-Type":"application/json",

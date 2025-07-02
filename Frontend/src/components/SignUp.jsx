@@ -1,14 +1,16 @@
 import React from 'react'
 import { useState } from 'react'
 import {useNavigate} from "react-router-dom"
-
+import API_URL from '../config/api'
+import { useToast } from '../context/notification/ToastContext'
 function SignUp(props) {
+  const {notify} = useToast();
   const navigate = useNavigate()
   const [confirmpasswordtext, setconfirmpasswordtext] = useState("")
   const [userdata, setuserdata] = useState({name:"",email:"",password : ""})
   const handleSignUp = async (event) => {
     event.preventDefault()
-    let response = await fetch("http://localhost:7000/api/auth/createuser",{
+    let response = await fetch(`${API_URL}/auth/createuser`,{
       method:"POST",
       headers : {
         "Content-Type":"application/json",
@@ -16,9 +18,8 @@ function SignUp(props) {
       body : JSON.stringify({name : userdata.name,email : userdata.email,password:userdata.password})
     })
     const json = await response.json()
-    console.log(json)
     if(json.success) {
-      let response1 = await fetch("http://localhost:7000/api/userStats/createStats",{
+      let response1 = await fetch(`${API_URL}/userStats/createStats`,{
         method:"POST",
         headers : {
           "Content-Type":"application/json",
@@ -26,14 +27,14 @@ function SignUp(props) {
         body : JSON.stringify({email : userdata.email})
       })
       const json1 = await response1.json()
+      notify("Sign Up Done Successfully",'success');
       navigate("/")
-      props.showAlert("SignUp successfully","success")
       localStorage.setItem("authToken",json["authToken"])
       localStorage.setItem("email",userdata.email)
     }
     else {
       if (json.error === "Sorry a user with this email address already exists"){
-        props.showAlert("Sorry a user with this email address already exists","info")
+        notify("Sorry A user already exists","error")
       }
     }
   }
