@@ -2,12 +2,12 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useLocation,useNavigate } from 'react-router-dom'
 import { useToast } from '../context/notification/ToastContext'
-
+import API_URL from '../config/api'
 function Navbar() {
   const {notify} = useToast();
   if (localStorage.getItem("authToken")) {
     const fetchuserfdata = async () => {
-      let response = await fetch("http://localhost:7000/api/auth/getuser",{
+      let response = await fetch(`${API_URL}/auth/getuser`,{
         method : "POST",
         headers : {
           "Content-Type" : "application/json",
