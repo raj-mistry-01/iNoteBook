@@ -9,7 +9,6 @@ function Login(props) {
   const [creditianls, setcreditianls] = useState({email:"",password:""})
   const handleLogin = async (event) => {
     event.preventDefault()
-    console.log(API_URL)
     let response = await fetch(`${API_URL}/auth/login`,{
       method : "POST",
       headers : {

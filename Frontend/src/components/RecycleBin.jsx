@@ -16,6 +16,10 @@ function RecycleBin(props) {
                     notify("Recycle Bin Fetched Successfully", "success");
                 }
             }
+            else {
+                notify("Please Login First", 'warning');
+                navigate("/login");
+            }
         };
         fetchData(); // ✅ IIFE pattern
     }, []);
