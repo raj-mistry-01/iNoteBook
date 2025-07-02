@@ -1,10 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useLocation,useNavigate } from 'react-router-dom'
+import { useToast } from '../context/notification/ToastContext'
 
 function Navbar() {
+  const {notify} = useToast();
   if (localStorage.getItem("authToken")) {
-    console.log("user is active")
     const fetchuserfdata = async () => {
       let response = await fetch("http://localhost:7000/api/auth/getuser",{
         method : "POST",
@@ -14,7 +15,6 @@ function Navbar() {
         }
       })
       const json_ = await response.json()
-      console.log(json_.name) 
       document.querySelector("#nameofuser").innerHTML = json_.name
     }
     fetchuserfdata()
@@ -23,6 +23,8 @@ function Navbar() {
   let location = useLocation()
   const handlelogout = () => {
     localStorage.clear()
+    console.log("yess")
+    notify("Log Out Successfully",'success')
     navigate("/login")
   }
   return (
@@ -41,9 +43,9 @@ function Navbar() {
                 <li className="nav-item">
                 <Link className={`nav-link ${location.pathname === "/about" ? "active":""}`} to="/about">About</Link>
                 </li>
-                <li className="nav-item">
+                {/* <li className="nav-item">
                 <Link className={`nav-link ${location.pathname === "/dashBoard" ? "active":""}`} to="/dashBoard">DashBoard</Link>
-                </li>
+                </li> */}
                 <li className="nav-item">
                 <Link className={`nav-link ${location.pathname === "/notesSection" ? "active":""}`} to="/notesSection">Notes</Link>
                 </li>

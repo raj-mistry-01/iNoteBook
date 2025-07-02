@@ -2,8 +2,10 @@ import React, { useContext } from "react";
 import NoteContext from '../context/notes/NoteContext.jsx';
 import { Col, Card, Button } from 'react-bootstrap';
 import '../style/NoteItem.css'; // Import a CSS file for custom styles
+import { useToast } from "../context/notification/ToastContext.jsx";
 
 function NoteItem(props) {
+  const {notify} = useToast();
   const context = useContext(NoteContext);
   const { deleteNote , downloadTheNote } = context;
   const { note, updateNote } = props;

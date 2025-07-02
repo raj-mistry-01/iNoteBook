@@ -1,7 +1,9 @@
 import React from 'react'
 import { useState } from 'react'
 import {useNavigate} from "react-router-dom"
+import { useToast } from '../context/notification/ToastContext'
 function Login(props) {
+  const {notify} = useToast();
   let navigate = useNavigate()
   const [creditianls, setcreditianls] = useState({email:"",password:""})
   const handleLogin = async (event) => {
@@ -16,13 +18,14 @@ function Login(props) {
     const json = await response.json()
     console.log(json)
     if (json.success) {
-      props.showAlert("log in Successfull","success")
+      // props.showAlert("log in Successfull","success")
+      notify("Log in successful","success");
       navigate("/")
       localStorage.setItem("authToken",json["authToken"])
       localStorage.setItem("email",creditianls.email)
     }
     else {
-        props.showAlert("Wrong Attemption","warning")
+      notify("Invalid log in attempt","warning")
     }
   }
 

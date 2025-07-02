@@ -1,15 +1,16 @@
 import React, { useState, useContext } from 'react';
 import NoteContext from '../context/notes/NoteContext.jsx';
+import { useToast } from '../context/notification/ToastContext.jsx';
 
 function AddNote(props) {
   const [note, setnote] = useState({ title: "", description: "", tag: "" });
   const context = useContext(NoteContext);
   const { addNote } = context;
+  const {notify} = useToast();
 
   const handleAddNote = async (event) => {
     event.preventDefault();
-    addNote(note.title, note.description, note.tag);
-    props.showAlert("Note Added Successfully", "Success");
+    const resp = await addNote(note.title, note.description, note.tag);
     setnote({ title: "", description: "", tag: "" });
     let response = await fetch("http://localhost:7000/api/userStats/updateStats",{
       method : "POST",
@@ -17,7 +18,13 @@ function AddNote(props) {
       body : JSON.stringify({email : localStorage.getItem("email") , type : "added"})
     })
     let json =  response.json()
-    console.log(json)
+    if(resp.ok) {
+      console.log("yessss")
+      notify("Successfully added new note","success");
+    }
+    else {
+      notify("Some Error Occured","error")
+    }
   };
 
   const handleInputChange = (event) => {

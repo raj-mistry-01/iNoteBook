@@ -11,19 +11,6 @@ import {useNavigate} from "react-router-dom"
 
 
 function Notes(props) {
-  // const navigate = useNavigate()
-  // const context = useContext(NoteContext);
-  // const [note, setnote] = useState({id:"",titleToEdit:"",descriptionToEdit:"",tagToEdit:"default"})
-  // const { notes, fetchAllNotes,editNote,loading} = context;
-
-  // useEffect(() => {
-  //   if (localStorage.getItem("authToken")) {
-  //     fetchAllNotes();
-  //   }
-  //   else {
-  //     navigate("/login")
-  //   }
-  // }, []);
   return (
     <>
       <AddNote showAlert = {props.showAlert}/>

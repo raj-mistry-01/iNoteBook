@@ -35,9 +35,7 @@ router.post("/fetchStats",
         try {
             let success = true
             let status = 200
-            console.log("fetching")
             const {email} = req.body
-            console.log(email)
             let user = await NotesStats.findOne({email : email})
             if(user) {
                 res.json({ success :  success , status : status , userStats : user})

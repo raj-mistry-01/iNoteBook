@@ -5,7 +5,9 @@ import AddNote from "./AddNote";
 import Loading from "./Loading";
 import { useNavigate } from "react-router-dom";
 import { Modal } from 'bootstrap';
+import { useToast } from "../context/notification/ToastContext.jsx";
 function NotesSection(props) {
+    const { notify } = useToast();
     const navigate = useNavigate();
     const context = useContext(NoteContext);
     const [note, setnote] = useState({ id: "", titleToEdit: "", descriptionToEdit: "", tagToEdit: "default" });
@@ -37,16 +39,14 @@ function NotesSection(props) {
         setnote({ ...note, [event.target.name]: event.target.value });
     };
 
-    const editNote_ = (event) => {
+    const editNote_ = async (event) => {
         event.preventDefault();
         editNote(note.id, note.titleToEdit, note.descriptionToEdit, note.tagToEdit);
-
         // Close the modal
         const modalElement = document.getElementById('exampleModal');
         const modalInstance = Modal.getInstance(modalElement);
         modalInstance.hide();
 
-        props.showAlert("Note Updated Successfully", "success");
     };
 
     return (

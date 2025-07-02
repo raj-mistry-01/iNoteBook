@@ -2,17 +2,23 @@ import React, { useEffect, useContext } from "react";
 import DeletedNoteItem from "./DeletedNoteItem";
 import NoteContext from "../context/notes/NoteContext.jsx";
 import Loading from "./Loading";
+import { useToast } from "../context/notification/ToastContext.jsx";
 
 function RecycleBin(props) {
     const { fetchAllDelNotes, delNotes, loading } = useContext(NoteContext);
-
+    const { notify } = useToast();
     useEffect(() => {
-        if (localStorage.getItem("authToken")) {
-            fetchAllDelNotes(); 
-            console.log(delNotes)
-        }
-    }, []); 
-
+        const fetchData = async () => {
+            if (localStorage.getItem("authToken")) {
+                const response = await fetchAllDelNotes();
+                console.log(response);
+                if (response.ok) {
+                    notify("Recycle Bin Fetched Successfully", "success");
+                }
+            }
+        };
+        fetchData(); // ✅ IIFE pattern
+    }, []);
     return (
         <>
             <div className="row mx-3">
@@ -21,7 +27,7 @@ function RecycleBin(props) {
                 {loading && <Loading />}
                 {delNotes.map((note) => {
                     return (
-                        <DeletedNoteItem note={note} key={note._id}/>
+                        <DeletedNoteItem note={note} key={note._id} />
                     );
                 })}
             </div>

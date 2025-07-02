@@ -47,7 +47,7 @@ function Dashboard(props) {
         <div className="text-center mb-4">
           <img src={Image} alt="iNotebook Logo" className="sidebar-logo" /> {/* Replace with your local path */}
           <h2 className="mt-3">iNotebook</h2>
-          <p className="text-muted">Your notes, organized and accessible.</p>
+          {/* <p className="text-muted">Your notes, organized and accessible.</p> */}
         </div>
       </div>
 
