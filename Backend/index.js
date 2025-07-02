@@ -9,7 +9,7 @@ const port = 7000
 // app.use(cors())
 const allowedOrigins = [
     "http://localhost:5173",
-    "https://inote-pied.vercel.app/"
+    "https://inote-pied.vercel.app"
 ];
 
 app.use(
